@@ -140,6 +140,16 @@ TEST_IMPL(pipe_getsockname) {
   ASSERT_EQ(r, UV_EINVAL);
 
   len = sizeof buf;
+
+  r = uv_pipe_getsockname(&pipe_server, NULL, &len);
+  ASSERT_EQ(r, UV_EINVAL);
+
+  r = uv_pipe_getsockname(&pipe_server, buf, NULL);
+  ASSERT_EQ(r, UV_EINVAL);
+
+  r = uv_pipe_getsockname(&pipe_server, NULL, NULL);
+  ASSERT_EQ(r, UV_EINVAL);
+
   r = uv_pipe_getsockname(&pipe_server, buf, &len);
   ASSERT_EQ(r, UV_EBADF);
 
